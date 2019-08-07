@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.qa.entity.Account;
+import com.qa.entity.SentAccount;
 import com.qa.repository.AccountRepository;
 
 @Service
@@ -20,6 +22,9 @@ public class AccountService {
 	private AccountRepository repository;
 	
 	private RestTemplate restTemplate;
+	
+    @Autowired
+    private JmsTemplate jmsTemplate;
 
 	@Autowired
 	public AccountService(AccountRepository repository, RestTemplate restTemplate) {
@@ -31,7 +36,7 @@ public class AccountService {
 		return repository.findAll();
 	}
 	
-	public String deleteAccount(long id){
+	public String deleteAccount(Long id){
 		repository.deleteById(id);
 		return "You have deleted";
 	}
@@ -43,10 +48,13 @@ public class AccountService {
 		String randNo = getRandNumber.getBody();
 		ResponseEntity<String> getPrize = restTemplate.exchange("http://localhost:8082/prizegen/getPrize/" + randNo, HttpMethod.GET, null, String.class);
 		repository.save(account);
+		account.setPrize(getPrize.getBody());
+		System.out.println(account);
+		sendToQueue(account);
 		return getPrize.getBody();
 	}
 	
-	public String updateAccount(long id, Account account) {
+	public String updateAccount(Long id, Account account) {
 		Optional<Account> oldAccount = repository.findById(id);
 		
 		if (oldAccount != null) {
@@ -59,6 +67,12 @@ public class AccountService {
 		}
 		
 	}
+	
+    private void sendToQueue(Account account){
+        SentAccount accountToStore =  new SentAccount(account);
+        System.out.println(accountToStore);
+        jmsTemplate.convertAndSend("AccountQueue", accountToStore);
+    }
 
 
 }

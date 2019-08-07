@@ -29,9 +29,9 @@ public class AccountServiceTests {
 	@Mock
 	AccountRepository repo;
 	
-	public Account MOCK_OBJECT = new Account("acc1", "111111");
+	public Account MOCK_OBJECT = new Account("acc1", "111111", "50");
 	
-	public Account MOCK_OBJECT2 = new Account("acc2", "222222");
+	public Account MOCK_OBJECT2 = new Account("acc2", "222222", "100");
 
 	
 	@Test

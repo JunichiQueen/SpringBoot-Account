@@ -13,26 +13,29 @@ public class Account {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column
 	private String name;
 	@Column
 	private String accountNumber;
+	@Column
+	private String prize;
 
-	public Account(String name, String accountNumber) {
+	public Account(String name, String accountNumber, String prize) {
 		this.name = name;
 		this.accountNumber = accountNumber;
+		this.prize = prize;
 	}
 	
 	public Account() {
 		
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -47,7 +50,7 @@ public class Account {
 	@Override
 	public String toString() {
 
-		return "id: " + id + ", name: " + name;
+		return "id: " + id + ", name: " + name + ", accountNumber: " + accountNumber + ", prize: " + prize;
 	}
 
 	public String getAccountNumber() {
@@ -56,6 +59,14 @@ public class Account {
 
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
+	}
+
+	public String getPrize() {
+		return prize;
+	}
+
+	public void setPrize(String prize) {
+		this.prize = prize;
 	}
 	
 

@@ -27,9 +27,9 @@ public class AccountControllerTests {
 	@Mock
 	AccountService service;
 	
-	public Account MOCK_OBJECT = new Account("acc1", "111111");
+	public Account MOCK_OBJECT = new Account("acc1", "111111", "50");
 	
-	public Account MOCK_OBJECT2 = new Account("acc2", "222222");
+	public Account MOCK_OBJECT2 = new Account("acc2", "222222", "100");
 
 	
 	@Test
@@ -44,7 +44,7 @@ public class AccountControllerTests {
 	
 	@Test
 	public void deleteAccount() {
-		Mockito.when(service.deleteAccount(1)).thenReturn("You have deleted");
+		Mockito.when(service.deleteAccount((long) 1)).thenReturn("You have deleted");
 		assertEquals(controller.deleteAccount((long) 1), "You have deleted");
 	}
 	
@@ -56,7 +56,7 @@ public class AccountControllerTests {
 	
 	@Test
 	public void updateAccount() {
-		Mockito.when(service.updateAccount(1, MOCK_OBJECT)).thenReturn("You have updated");
+		Mockito.when(service.updateAccount((long) 1, MOCK_OBJECT)).thenReturn("You have updated");
 		assertEquals(controller.updateAccount((long) 1, MOCK_OBJECT), "You have updated");
 	}
 
