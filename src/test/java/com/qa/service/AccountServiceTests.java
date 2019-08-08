@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.qa.controller.AccountController;
 import com.qa.entity.Account;
 import com.qa.repository.AccountRepository;
 
@@ -24,7 +23,7 @@ import com.qa.repository.AccountRepository;
 public class AccountServiceTests {
 	
 	@InjectMocks
-	AccountController service;
+	AccountServiceImpl service;
 	
 	@Mock
 	AccountRepository repo;
@@ -39,24 +38,25 @@ public class AccountServiceTests {
 		List<Account> MOCK_LIST = new ArrayList<Account>();
 		MOCK_LIST.add(MOCK_OBJECT);
 		MOCK_LIST.add(MOCK_OBJECT2);
+		
 		Mockito.when(repo.findAll()).thenReturn(MOCK_LIST);
-		//assertEquals(MOCK_LIST, service.getAllAccounts());
-		//Mockito.verify(repo).findAll();
+		
+		assertEquals(MOCK_LIST, service.getAllAccounts());
+		
+		Mockito.verify(repo).findAll();
 		assertEquals(0, 0);
 	}
 	
 	@Test
 	public void deleteAccount() {
-		//String reply = service.deleteAccount((long) 1);
-		//assertEquals("You have deleted", reply);
+		String reply = service.deleteAccount((long) 1);
+		assertEquals("You have deleted", reply);
 		assertEquals(0, 0);
 	}
 	
 	
 	@Test
 	public void createAccount() {
-		//Mockito.when(service.createAccount(MOCK_OBJECT)).thenReturn("You have created");
-		//assertEquals("You have created", service.createAccount(MOCK_OBJECT));
 		assertEquals(0, 0);
 	}
 	
@@ -66,7 +66,7 @@ public class AccountServiceTests {
 				
 		Mockito.when(repo.findById((long) 1)).thenReturn(optAcc);
 		
-		//assertEquals(service.updateAccount((long) 1, MOCK_OBJECT), "You have updated");
+		assertEquals(service.updateAccount((long) 1, MOCK_OBJECT), "You have updated");
 		assertEquals(0, 0);
 	}
 

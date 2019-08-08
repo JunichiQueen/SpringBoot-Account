@@ -16,17 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.qa.entity.Account;
-import com.qa.service.AccountService;
+import com.qa.service.AccountServiceImpl;
 
 @RestController
 @RequestMapping("/account")
 public class AccountController {
 	
-	private AccountService accountService;
+	private AccountServiceImpl accountService;
+	
 	private RestTemplate restTemplate;
 
 	@Autowired
-	public AccountController(AccountService accountService, RestTemplate restTemplate) {
+	public AccountController(AccountServiceImpl accountService, RestTemplate restTemplate) {
 		this.accountService = accountService;
 		this.restTemplate = restTemplate;
 	}

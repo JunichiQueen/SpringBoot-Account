@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.qa.entity.Account;
 import com.qa.repository.AccountRepository;
-import com.qa.service.AccountService;
+import com.qa.service.AccountServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,7 +25,7 @@ public class AccountControllerTests {
 	AccountController controller;
 	
 	@Mock
-	AccountService service;
+	AccountServiceImpl service;
 	
 	public Account MOCK_OBJECT = new Account("acc1", "111111", "50");
 	
